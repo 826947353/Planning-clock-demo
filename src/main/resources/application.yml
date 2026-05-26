@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: tomato-server
+
+  # ========== 数据库配置（由你自行修改连接信息）==========
+  # 默认使用 H2 内存数据库快速启动，切换到 MySQL 时取消注释下方配置
+  datasource:
+    url: jdbc:h2:mem:pomotimer;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # ========== MySQL 配置（需要时取消注释，并注释掉上方 H2 配置）==========
+  # datasource:
+  #   url: jdbc:mysql://localhost:3306/pomotimer?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
+  #   driver-class-name: com.mysql.cj.jdbc.Driver
+  #   username: root
+  #   password: your_password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+        # MySQL 时使用: org.hibernate.dialect.MySQLDialect
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+# ========== DeepSeek AI 配置（填入你的 API Key 即可使用）==========
+deepseek:
+  api:
+    # DeepSeek API 地址（官方地址如下）
+    url: https://api.deepseek.com/chat/completions
+    # 在这里填入你的 DeepSeek API Key
+    key: your-deepseek-api-key
+    # 模型名称：deepseek-chat / deepseek-reasoner 等
+    model: deepseek-chat
